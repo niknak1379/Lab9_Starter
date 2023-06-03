@@ -96,6 +96,13 @@
   </main>
 
   <script>
+    class customError extends Error {
+      constructor(message) {
+        super(message); // (1)
+        this.name = "customError"; // (2)
+      }
+    }
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -103,6 +110,9 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
+      if(!Number.isNaN(firstNum) || !Number.isNaN(secondNum)){
+        throw new customError('input is not a number');
+      }
       output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
     });
 
@@ -201,20 +211,7 @@
     } finally {
       console.log("Try Catch Finally block has been exectued");
     }
-    class customError extends Error {
-      constructor(message) {
-        super(message); // (1)
-        this.name = "customError is an evil error"; // (2)
-      }
-    }
-    function someFunction() {
-      throw new customError('yuhahahah');
-    }
-
-    someFunction();
     TrackJS.track('Testing TrackJS!');
   </script>
-
 </body>
-
 </html>
