@@ -99,9 +99,110 @@
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
-
     // Start your code here
     // You may move this JS to another file if you wish
+    let consoleCount = 1;
+    errorBtns[0].addEventListener('click', () =>{
+      console.log('Log demo');
+    });
+    errorBtns[1].addEventListener('click', () =>{
+      console.error('console error demo');
+    });
+    errorBtns[2].addEventListener('click', () =>{
+      console.log(`Count Button: ${consoleCount}`);
+      consoleCount++;
+    });
+    errorBtns[3].addEventListener('click', () =>{
+      console.warn('Console Warn Button');
+    });
+    errorBtns[4].addEventListener('click', () =>{
+      const x = 5;
+      const y = 3;
+      const reason = 'x is expected to be less than y';
+      console.assert(x < y, {x, y, reason});
+    });
+    errorBtns[5].addEventListener('click', () =>{
+      console.clear();
+    });
+    errorBtns[6].addEventListener('click', () =>{
+      console.dir(errorBtns[6]);
+    });
+    errorBtns[7].addEventListener('click', () =>{
+      console.dirxml(errorBtns[6]);
+    });
+    errorBtns[8].addEventListener('click', () =>{
+      console.group('A Certain Group');
+    });
+    errorBtns[9].addEventListener('click', () =>{
+      console.groupEnd();
+    });
+    errorBtns[10].addEventListener('click', () =>{
+      var people = [
+        {
+          first: 'René',
+          last: 'Magritte',
+        },
+        {
+          first: 'Chaim',
+          last: 'Soutine',
+          birthday: '18930113',
+        },
+        {
+          first: 'Henri',
+          last: 'Matisse',
+        }
+      ];
+      console.table(people);
+    });
+    errorBtns[11].addEventListener('click', () =>{
+      console.time('Timer Button:');
+    });
+    errorBtns[12].addEventListener('click', () =>{
+      console.timeEnd('Timer Button:');
+    });
+    errorBtns[13].addEventListener('click', () =>{
+      function levelOne(){
+        levelTwo();
+      }
+      function levelTwo(){
+        levelThree();
+      }
+      function levelThree(){
+        console.trace();
+      }
+      levelOne();
+    });
+    errorBtns[14].addEventListener('click', () =>{
+      window.onerror = function(errorMessage, url, lineNumber, columnNumber, errorObject) {
+        console.error("An error occurred!");
+        console.error("Error:", errorMessage);
+        console.error("URL:", url);
+        console.error("Line:", lineNumber);
+        console.error("Column:", columnNumber);
+        console.error("Error object:", errorObject);
+
+        // Return true to prevent the default error handling
+        return true;
+      };
+      doesNotExist();
+    });
+    try {
+      document.getElementById('NotLoadedYet');
+    } catch (error) {
+      console.error("An error occurred:", error);
+    } finally {
+      console.log("Try Catch Finally block has been exectued");
+    }
+    class customError extends Error {
+      constructor(message) {
+        super(message); // (1)
+        this.name = "customError is an evil error"; // (2)
+      }
+    }
+    function someFunction() {
+      throw new customError('yuhahahah');
+    }
+    someFunction();
   </script>
 </body>
 
